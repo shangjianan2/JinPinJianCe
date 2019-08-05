@@ -60,7 +60,8 @@ test_play.play(video_def)
 driver.save_screenshot('s2_afer.png')
 
 during_second = t2s(driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div/div[1]/iqpdiv/iqpdiv[1]/iqpdiv[2]/iqpdiv/iqpdiv[4]/iqpdiv[1]/iqpdiv[2]/iqpspan[3]').get_attribute('textContent'))
-print("the total time is %d second\r\n" % (during_second))
+print("the total time is %d second" % (during_second))
+print("the video is playing......\r\n")
 
 time.sleep(during_second)
 
