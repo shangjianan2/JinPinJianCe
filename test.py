@@ -10,33 +10,61 @@ import time
 import login_aiqiyi
 from video_play_aiqiyi import *
 
-#driver = webdriver.Firefox(firefox_profile='./profile', executable_path='./geckodriver1.exe')#geckodriver的最新版本
+def t2s(t):
+    if(str(t).count(":") == 2):
+        h,m,s = t.strip().split(":")
+        return int(h) * 3600 + int(m) * 60 + int(s)
+    else:
+        m,s = t.strip().split(":")
+        return int(m) * 60 + int(s)
+
+url = input("url: ")
+print("please choose definition: 1 1080pClient, 2 1080p, 3 720p, 4 GaoQing, 5 LiuChang, 6 JiSu")
+qixidu = input("please input the num: ")
+video_def = "GaoQing"
+if(qixidu == 1):
+    print("1080pClient")
+    video_def = "1080pClient"
+elif(qixidu == 2):
+    print("1080p")
+    video_def = "1080p"
+elif(qixidu == 3):
+    print("720p")
+    video_def = "720p"
+elif(qixidu == 4):
+    print("GaoQing")
+    video_def = "GaoQing"
+elif(qixidu == 5):
+    print("LiuChang")
+    video_def = "LiuChang"
+elif(qixidu == 6):
+    print("JiSu")
+    video_def = "JiSu"
+else:
+    print("error")
+
 driver = webdriver.Firefox(executable_path="./geckodriver")
 
 
 driver.implicitly_wait(30)#设置加载driver加载元素时所等待的最长的时间，
-driver.get("https://www.iqiyi.com/v_19rrdh6354.html")
-#time.sleep(40)
+#driver.get("https://www.iqiyi.com/v_19rrdh6354.html")
+driver.get(url)
+print("successful operation\r\n")
 
-time.sleep(5)
-print 'start up'
-test_login = login_aiqiyi.login_aiqiyi(driver, '1978707987', '130103020152')
-test_login.login_with_QQ()
-print 'has login'
-time.sleep(4)
-driver.save_screenshot('s3.png')
-driver.switch_to_window(driver.window_handles[0])
-driver.refresh()
-print '1'
+print("waiting for the advertising\r\n")
 time.sleep(40)
-print '2'
+print("advertising is over\r\n")
 test_play = video_play_aiqiyi(driver)
-test_play.play('GaoQing')
-print '3'
-
 driver.save_screenshot('s2_before.png')
-time.sleep(10)
+#test_play.play('GaoQing')
+test_play.play(video_def)
 driver.save_screenshot('s2_afer.png')
+
+during_second = t2s(driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div/div[1]/iqpdiv/iqpdiv[1]/iqpdiv[2]/iqpdiv/iqpdiv[4]/iqpdiv[1]/iqpdiv[2]/iqpspan[3]').get_attribute('textContent'))
+print("the total time is %d second\r\n" % (during_second))
+
+time.sleep(during_second)
+
 driver.close()
 driver.quit()
 print 'game over'
