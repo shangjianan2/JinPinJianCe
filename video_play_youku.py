@@ -14,7 +14,6 @@ class video_play_youku:
         #查找必要的控件
         print 'youku begin to find element'
 
-        self.driver.save_screenshot('youku.png')
         self.video = self.driver.find_element_by_xpath('//video')
         self.video_start = self.driver.find_element_by_xpath('/html/body/div[4]/div[1]/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[1]/div[14]/div/button')
         self.video_progress_bar = self.driver.find_element_by_xpath('/html/body/div[4]/div[1]/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[2]/div[1]/div/div/div[1]')
@@ -40,6 +39,7 @@ class video_play_youku:
         ActionChains(self.driver).move_by_offset(0, (self.video.size['height'] / 2 - 20)).perform()
         time.sleep(1)
         ActionChains(self.driver).click(self.definition).perform()
+        self.driver.save_screenshot('youku_set_definition.png')
         time.sleep(1)
 
         #切换清晰度

@@ -37,8 +37,9 @@ class video_play_aiqiyi:
         ActionChains(self.driver).move_to_element(self.video).perform()#初次将鼠标移动到video上，会呼叫出control bar，在control bar上进行后续操作
         time.sleep(1)
         ActionChains(self.driver).move_to_element(self.definition).perform()#将鼠标移动至"清晰度"那里
+        self.driver.save_screenshot('aiqiyi_set_definition.png')
         time.sleep(1)
-        #切换清晰度
+
         if definition_aiqiyi == '1080pClient':
             ActionChains(self.driver).click(self.definition_1080pClient).perform()
         elif definition_aiqiyi == '1080p':
