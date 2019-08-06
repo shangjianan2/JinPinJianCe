@@ -47,7 +47,7 @@ driver.get(url)
 
 print '1' 
 driver.refresh()
-with open('./cookie.txt', 'r') as f:
+with open('./youku_cookie.txt', 'r') as f:
     cookies = f.read()
     cookies = json.loads(cookies)
 
@@ -69,6 +69,7 @@ time.sleep(10)
 driver.save_screenshot('youku_test.png')
 during_second = t2s(driver.find_element_by_xpath('/html/body/div[4]/div[1]/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[2]/div[2]/div[1]/div[3]/span[3]').get_attribute('textContent'))
 print("the total time is %d second\r\n" % (during_second))
+print("the video is playing......\r\n")
 
 time.sleep(during_second)
 

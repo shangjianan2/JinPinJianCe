@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC # available sin
 from selenium.webdriver.common.action_chains import ActionChains
 
 import time
+import json
 from video_play_aiqiyi import *
 
 def t2s(t):
@@ -48,6 +49,18 @@ driver = webdriver.Firefox(executable_path="./geckodriver")
 driver.implicitly_wait(30)#设置加载driver加载元素时所等待的最长的时间，
 #driver.get("https://www.iqiyi.com/v_19rrdh6354.html")
 driver.get(url)
+
+print '1' 
+#driver.refresh()
+with open('./aiqiyi_cookie.txt', 'r') as f:
+    cookies = f.read()
+    cookies = json.loads(cookies)
+
+for mem in cookies:
+    driver.add_cookie(mem)
+driver.refresh()
+print '2'
+
 print("successful operation\r\n")
 
 print("waiting for the advertising\r\n")
