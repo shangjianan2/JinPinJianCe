@@ -54,7 +54,6 @@ with open('./cookie.txt', 'r') as f:
 for mem in cookies:
     driver.add_cookie(mem)
 driver.refresh()
-driver.save_screenshot('s_afer.png')
 print '2'
 
 print("successful operation\r\n")
@@ -63,11 +62,11 @@ print("waiting for the advertising\r\n")
 time.sleep(40)
 print("advertising is over\r\n")
 test_play = video_play_youku(driver)
-driver.save_screenshot('s2_before.png')
 #test_play.play('GaoQing')
 test_play.play(video_def)
-driver.save_screenshot('s2_afer.png')
 
+time.sleep(10)
+driver.save_screenshot('youku_test.png')
 during_second = t2s(driver.find_element_by_xpath('/html/body/div[4]/div[1]/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[2]/div[2]/div[1]/div[3]/span[3]').get_attribute('textContent'))
 print("the total time is %d second\r\n" % (during_second))
 
