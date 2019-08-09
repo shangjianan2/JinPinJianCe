@@ -43,23 +43,13 @@ elif(qixidu == 6):
 else:
     print("error")
 
-driver = webdriver.Firefox(executable_path="./geckodriver")
+#driver = webdriver.Firefox(executable_path="./geckodriver")
+driver = webdriver.Firefox(firefox_profile='./profile0808', executable_path="./geckodriver")
 
 
 driver.implicitly_wait(30)#设置加载driver加载元素时所等待的最长的时间，
 #driver.get("https://www.iqiyi.com/v_19rrdh6354.html")
 driver.get(url)
-
-print '1' 
-#driver.refresh()
-with open('./aiqiyi_cookie.txt', 'r') as f:
-    cookies = f.read()
-    cookies = json.loads(cookies)
-
-for mem in cookies:
-    driver.add_cookie(mem)
-driver.refresh()
-print '2'
 
 print("successful operation\r\n")
 
@@ -71,12 +61,12 @@ test_play = video_play_aiqiyi(driver)
 test_play.play(video_def)
 
 time.sleep(10)
-driver.save_screenshot('aiqiyi_test.png')
 during_second = t2s(driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div/div[1]/iqpdiv/iqpdiv[1]/iqpdiv[2]/iqpdiv/iqpdiv[4]/iqpdiv[1]/iqpdiv[2]/iqpspan[3]').get_attribute('textContent'))
 print("the total time is %d second" % (during_second))
 print("the video is playing......\r\n")
 
-time.sleep(during_second)
+time.sleep(during_second - 20)
+driver.save_screenshot('aiqiyi_test.png')
 
 driver.close()
 driver.quit()
